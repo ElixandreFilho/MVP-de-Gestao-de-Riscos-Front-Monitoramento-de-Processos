@@ -67,6 +67,8 @@ export const useMonitoramentoStore = defineStore("monitoramento", () => {
             if (proposta.status === "AJUSTES_SOLICITADOS") return ["EDITAR", "REENVIAR_AJUSTADO"]
             return []
         }
+        if (proposta.autorId === actor.id && proposta.status === "RASCUNHO") return ["EDITAR", "ENVIAR_PARA_ANALISE"]
+        if (proposta.autorId === actor.id && proposta.status === "AJUSTES_SOLICITADOS") return ["EDITAR", "REENVIAR_AJUSTADO"]
         if (actor.contexto === "ANALISE") {
             if (proposta.status === "AGUARDANDO_ANALISE") return ["ACEITAR", "REJEITAR", "SOLICITAR_AJUSTES"]
             if (proposta.status === "ACEITO") return ["CANCELAR_ACEITE"]
@@ -75,8 +77,6 @@ export const useMonitoramentoStore = defineStore("monitoramento", () => {
             return []
         }
         if (proposta.autorId !== actor.id) return []
-        if (proposta.status === "RASCUNHO") return ["EDITAR", "ENVIAR_PARA_ANALISE"]
-        if (proposta.status === "AJUSTES_SOLICITADOS") return ["EDITAR", "REENVIAR_AJUSTADO"]
         if (proposta.status === "ACEITO") return ["CANCELAR_ACEITE"]
         if (proposta.status === "REJEITADO") return ["CANCELAR_REJEICAO"]
         return []
